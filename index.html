@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+		<title>Hagaromoitis</title>
+
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+            
+</head>
+
+<body>
+
+
+	<canvas id="canv" width="1186" height="846" style="background: url('reed_bg.png')"">
+    </canvas>
+	
+    <div class="slidecontainer">
+        <p>
+            O<sub>0</sub> = <span title="Hi" id="O-init"></span> &emsp; 
+            T<sub>0</sub> = <span id="T-init"></span> &emsp; 
+            E<sub>0</sub> = <span id="E-init"></span> &emsp; 
+            U<sub>0</sub> = <span id="U-init"></span> &emsp; 
+
+
+            &beta; = <span id="beta-init"></span> &emsp; 
+            &gamma; = <span id="gamma-init"></span> &emsp; 
+            &delta;= <span id="delta-init"></span> &emsp;
+            &epsilon; = <span id="epsilon-init"></span> &emsp; 
+            &alpha;= <span id="alpha-init"></span> &emsp; 
+        </p>
+        <input type="range" min="0" max="250" value="50" class="slider" id="O-range">
+        <input type="range" min="0" max="250" value="50" class="slider" id="T-range">
+        <input type="range" min="0" max="250" value="50" class="slider" id="E-range">
+        <input type="range" min="0" max="250" value="50" class="slider" id="U-range">
+
+        <input type="range" min="0" max="1" value="0" step="0.0001" class="slider" id="beta-range">
+        <input type="range" min="0" max="1" value="0" step="0.0001" class="slider" id="gamma-range">
+        <input type="range" min="0" max="1" value="0" step="0.0001" class="slider" id="delta-range">
+        <input type="range" min="0" max="1" value="0" step="0.0001" class="slider" id="epsilon-range">
+        <input type="range" min="0" max="1" value="0" step="0.0001" class="slider" id="alpha-range">
+    </div>
+
+        <button type="button" id="startbutton">Start</button>
+        If it starts getting slow, refresh the page. All rates are in units of seconds<sup>-1</sup>.
+       
+        
+    <script>
+        var inputs = ["O", "T", "E", "U", "beta", "gamma", "delta", "epsilon", "alpha"];
+        var sliders = inputs.map(inp => document.getElementById(inp + "-range"));
+        var spans = inputs.map(inp => document.getElementById(inp + "-init")); 
+        
+        for(var i = 0; i < sliders.length; i+=1)
+        {
+            var slider = sliders[i];
+            var span = spans[i];
+            span.innerHTML = slider.value;
+            slider.oninput = function(){
+                span = document.getElementById(this.id.split("-")[0]+"-init");
+                span.innerHTML = this.value;
+            }
+        }
+
+    </script>
+
+    <div id="plot" style="width:1000px;height:500px;"></div>
+    <script src="hagaromoitis.js"></script>
+    <script src="interact.js"></script>
+    
+
+</body>
+
+</html>
